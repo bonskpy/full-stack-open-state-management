@@ -1,14 +1,14 @@
-import { useFeedbackActions } from "../store"
+import { useFeedbackAdder } from "../store"
 
 const Buttons = () => {
-  const { handleGood, handleNeutral, handleBad } = useFeedbackActions()
+  const addFeedback = useFeedbackAdder()
 
   return (
     <div>
       <h2>give feedback</h2>
-      <button onClick={handleGood}>good</button>
-      <button onClick={handleNeutral}>neutral</button>
-      <button onClick={handleBad}>bad</button>
+      <button onClick={() => addFeedback('good')}>good</button>
+      <button onClick={() => addFeedback('neutral')}>neutral</button>
+      <button onClick={() => addFeedback('bad')}>bad</button>
     </div>
   )
 }
