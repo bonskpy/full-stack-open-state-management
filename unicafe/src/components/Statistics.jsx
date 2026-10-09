@@ -6,8 +6,8 @@ const Statistics = () => {
   const bad = useFeedbackBad()
 
   const all = (good + neutral + bad) || 0
-  const average = (Math.round((good - bad / all) * 100) / 100) || 0
-  const positive = (Math.round((good / all) * 100) / 100) || 0
+  const average = (Math.round(((good - bad) / all) * 100) / 100) || 0
+  const positive = (Math.round((good / all) * 100)) || 0
 
   return (
     <div>
@@ -19,7 +19,7 @@ const Statistics = () => {
           <tr><td>bad</td><td>{bad}</td></tr>
           <tr><td>all</td><td>{all}</td></tr>
           <tr><td>average</td><td>{average}</td></tr>
-          <tr><td>positive</td><td>{positive}</td></tr>
+          <tr><td>positive</td><td>{positive} %</td></tr>
         </tbody>
       </table>
     </div>
