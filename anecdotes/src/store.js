@@ -2,6 +2,7 @@
 import { create } from 'zustand'
 import {anecdotesAtStart, asObject} from './utils'
 
+const descendingOrder = (a, b) => b.votes - a.votes
 
 const useAnecdoteStore = create((set) => ({
   anecdotes: anecdotesAtStart.map(asObject),
@@ -12,11 +13,11 @@ const useAnecdoteStore = create((set) => ({
           (anecdote) => anecdote.id === id
             ? {...anecdote, votes: anecdote.votes + 1}
             : anecdote
-        )}
+        ).toSorted(descendingOrder)}
       })
     },
     add: (anecdote) => {
-      set((state) => ({anecdotes: state.anecdotes.concat(anecdote)}))
+      set((state) => ({anecdotes: state.anecdotes.concat(anecdote).toSorted(descendingOrder)}))
     }}
     })
   )
