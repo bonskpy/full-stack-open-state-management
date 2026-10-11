@@ -1,12 +1,17 @@
 import { create } from "zustand";
-import { anecdotesAtStart, asObject, normalizeText } from "./utils";
+import { normalizeText } from "./utils";
+import { getAll } from "./services/anecdotes";
 
 const descendingOrder = (a, b) => b.votes - a.votes;
 
 const useAnecdoteStore = create((set) => ({
-  anecdotes: anecdotesAtStart.map(asObject),
+  anecdotes: [],
   filterText: null,
   actions: {
+    init: async () => {
+      const anecdotes = await getAll()
+      set(() => ({anecdotes}))
+    },
     vote: (id) => {
       set((state) => {
         return {
