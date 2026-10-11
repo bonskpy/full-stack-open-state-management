@@ -12,7 +12,8 @@ const Filter = () => {
 
     return (
         <div style={style}>
-            filter <input onChange={handleChange} data-testid="filter" />
+            <label htmlFor="textFilter">filter <input name="textFilter" onChange={handleChange} data-testid="filter" />
+            </label>
         </div>
     );
 };

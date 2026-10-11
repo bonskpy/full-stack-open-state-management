@@ -1,11 +1,11 @@
 import { create } from "zustand";
-import { anecdotesAtStart, asObject } from "./utils";
+import { anecdotesAtStart, asObject, normalizeText } from "./utils";
 
 const descendingOrder = (a, b) => b.votes - a.votes;
 
 const useAnecdoteStore = create((set) => ({
   anecdotes: anecdotesAtStart.map(asObject),
-  filter: null,
+  filterText: null,
   actions: {
     vote: (id) => {
       set((state) => {
@@ -24,21 +24,25 @@ const useAnecdoteStore = create((set) => ({
         anecdotes: state.anecdotes.concat(anecdote).toSorted(descendingOrder),
       }));
     },
-    setFilter: (filterValue) => {
-      set(() => ({filter: filterValue}))
-    }
+    setFilter: (content) => {
+      set(() => ({ filterText: content }));
+    },
   },
 }));
 
 export const useAnecdotes = () => {
-  const anecdotes = useAnecdoteStore((state) => state.anecdotes)
-  const filter = useAnecdoteStore((state) => state.filter)
+  const anecdotes = useAnecdoteStore((state) => state.anecdotes);
+  const filter = useAnecdoteStore((state) => state.filterText);
 
-  if (filter){
-     return anecdotes.filter( (anecdote) => anecdote.content.includes(filter))
+  if (filter) {
+    return anecdotes.filter((anecdote) => {
+      const content = normalizeText(anecdote.content);
+      const filterValue = normalizeText(filter);
+      return content.includes(filterValue);
+    });
   }
 
-  return anecdotes
+  return anecdotes;
 };
 export const useAnecdoteActions = () =>
   useAnecdoteStore((state) => state.actions);

@@ -15,6 +15,12 @@ const asObject = anecdote => ({
   votes: 0
 })
 
-export {
-  anecdotesAtStart, getId, asObject
+const normalizeText = (text) => {
+  return text.trim().toLowerCase()
 }
+
+export {
+  anecdotesAtStart, getId, asObject, normalizeText
+}
+
+
