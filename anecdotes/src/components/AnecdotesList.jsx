@@ -1,21 +1,46 @@
-import { useAnecdoteActions, useAnecdotes } from "../store";
+import {
+    useAnecdoteActions,
+    useAnecdotes,
+    useNotificationActions,
+} from "../store";
+
+import { descendingOrder } from "../utils";
 
 const AnecdotesList = () => {
     const anecdotes = useAnecdotes();
-    const actions = useAnecdoteActions();
+    const { vote, remove } = useAnecdoteActions();
+    const { notify } = useNotificationActions();
 
-    const vote = (id) => {
-        actions.vote(id);
+    const handleVote = (anecdote) => {
+        vote(anecdote.id);
+        notify(`you voted '${anecdote.content}'`);
+    };
+
+    const handleDelete = (anecdote) => {
+        remove(anecdote.id);
+        notify(`Deleting '${anecdote.content}'`);
     };
 
     return (
         <div>
-            {anecdotes.map((anecdote) => (
+            {[...anecdotes].toSorted(descendingOrder).map((anecdote) => (
                 <div key={anecdote.id}>
                     <div>{anecdote.content}</div>
                     <div>
                         has {anecdote.votes}
-                        <button onClick={() => vote(anecdote.id)}>vote</button>
+                        <button
+                            onClick={() =>
+                                handleVote(anecdote)}
+                        >
+                            vote
+                        </button>
+                        {anecdote.votes === 0
+                            ? (
+                                <button onClick={() => handleDelete(anecdote)}>
+                                    delete
+                                </button>
+                            )
+                            : null}
                     </div>
                 </div>
             ))}

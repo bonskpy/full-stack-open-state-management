@@ -1,14 +1,14 @@
-import { useAnecdoteActions } from "../store";
-import { asObject } from "../utils";
+import { useAnecdoteActions, useNotificationActions } from "../store";
 
 const AnecdotesForm = () => {
-
-    const { add } = useAnecdoteActions()
+    const { add } = useAnecdoteActions();
+    const { notify } = useNotificationActions();
 
     const addAnecdote = (e) => {
         e.preventDefault();
-        const newAnecdote = asObject(e.target.anecdote.value)
-        add(newAnecdote)
+        const content = e.target.anecdote.value;
+        add(content);
+        notify(`New note created: '${content}'`);
         e.target.reset();
     };
 
@@ -17,7 +17,12 @@ const AnecdotesForm = () => {
             <h2>create new</h2>
             <form onSubmit={addAnecdote}>
                 <div>
-                    <input name="anecdote" type="text" required data-testid="new" />
+                    <input
+                        name="anecdote"
+                        type="text"
+                        required
+                        data-testid="new"
+                    />
                 </div>
                 <button>create</button>
             </form>
