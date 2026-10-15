@@ -4,8 +4,6 @@ import {
     useNotificationActions,
 } from "../store";
 
-import { descendingOrder } from "../utils";
-
 const AnecdotesList = () => {
     const anecdotes = useAnecdotes();
     const { vote, remove } = useAnecdoteActions();
@@ -23,14 +21,13 @@ const AnecdotesList = () => {
 
     return (
         <div>
-            {[...anecdotes].toSorted(descendingOrder).map((anecdote) => (
+            {anecdotes.map((anecdote) => (
                 <div key={anecdote.id}>
                     <div>{anecdote.content}</div>
                     <div>
                         has {anecdote.votes}
                         <button
-                            onClick={() =>
-                                handleVote(anecdote)}
+                            onClick={() => handleVote(anecdote)}
                         >
                             vote
                         </button>

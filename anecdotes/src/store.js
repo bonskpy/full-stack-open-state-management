@@ -44,7 +44,7 @@ const useAnecdoteStore = create((set, get) => ({
     add: async (anecdote) => {
       const created = await createOne(anecdote);
       set((state) => ({
-        anecdotes: [...state.anecdotes].concat(created),
+        anecdotes: state.anecdotes.concat(created),
       }));
     },
     setFilter: (content) => {
@@ -69,7 +69,7 @@ export const useAnecdotes = () => {
     });
   }
 
-  return anecdotes;
+  return anecdotes.toSorted((a, b) => b.votes - a.votes);
 };
 
 export const useAnecdoteActions = () => {

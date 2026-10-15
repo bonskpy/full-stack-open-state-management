@@ -19,6 +19,4 @@ const normalizeText = (text) => {
   return text.trim().toLowerCase();
 };
 
-const descendingOrder = (a, b) => b.votes - a.votes;
-
-export { anecdotesAtStart, asObject, descendingOrder, getId, normalizeText };
+export { anecdotesAtStart, asObject, getId, normalizeText };

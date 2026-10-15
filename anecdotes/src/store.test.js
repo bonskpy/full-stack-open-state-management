@@ -1,5 +1,5 @@
 /**
- * TODO: a test that verifies the state is initialized with the anecdotes returned by the backend.
+ * TODO:  a test that verifies the component displaying anecdotes receives the anecdotes from the store sorted by votes.
  */
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { act, renderHook } from "@testing-library/react";
@@ -38,5 +38,7 @@ describe("useAnecdoteActions", () => {
     const { result: anecdotesResult } = renderHook(() => useAnecdotes());
 
     expect(anecdotesResult.current).toEqual(mockAnecdotes);
+  });
+  test("component displaying anecdotes receives the anecdotes from the store sorted by votes", async () => {
   });
 });
