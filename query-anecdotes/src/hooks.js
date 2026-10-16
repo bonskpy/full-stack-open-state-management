@@ -1,23 +1,33 @@
-import { getAnectodes } from "./services";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addAnectode } from "./services";
+import { addAnecdote, getAnecdotes, updateAnecdote } from "./services";
 
 export const useAnecdotes = () => {
   const queryClient = useQueryClient();
 
   const result = useQuery({
-    queryKey: ["anectodes"],
-    queryFn: getAnectodes,
+    queryKey: ["anecdotes"],
+    queryFn: getAnecdotes,
   });
 
   const addAnecdoteMutation = useMutation({
-    mutationFn: addAnectode,
+    mutationFn: addAnecdote,
     onSuccess: (newAnecdote) => {
-      const anecdotes = queryClient.getQueryData(["anectodes"]);
+      const anecdotes = queryClient.getQueryData(["anecdotes"]);
       queryClient.setQueryData(
-        ["anectodes"],
+        ["anecdotes"],
         anecdotes.concat(newAnecdote),
       );
+    },
+  });
+
+  const updateAnecdoteMutation = useMutation({
+    mutationFn: updateAnecdote,
+    onSuccess: (updated) => {
+      const anecdotes = queryClient.getQueryData(["anecdotes"]);
+      const updatedAnecdotes = anecdotes.map((anecdote) =>
+        anecdote.id === updated.id ? updated : anecdote
+      );
+      queryClient.setQueryData(["anecdotes"], updatedAnecdotes);
     },
   });
 
@@ -26,5 +36,7 @@ export const useAnecdotes = () => {
     isPending: result.isPending,
     isError: result.isError,
     addNew: (content) => addAnecdoteMutation.mutate(content),
+    updateVotes: (anecdote) =>
+      updateAnecdoteMutation.mutate({ ...anecdote, votes: anecdote.votes + 1 }),
   };
 };
