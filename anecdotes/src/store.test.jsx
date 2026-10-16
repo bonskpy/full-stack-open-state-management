@@ -82,7 +82,7 @@ describe("Anecdotes after initialization", () => {
     expect(await screen.findAllByTestId("anecdotes-list-item")).toHaveLength(1);
   });
 
-  test.only("voting increases the number of votes for an anecdote", async () => {
+  test("voting increases the number of votes for an anecdote", async () => {
     const anecdote = {
       id: 1,
       content: "If it hurts, do it more often",
