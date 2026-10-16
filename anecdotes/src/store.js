@@ -69,7 +69,7 @@ export const useAnecdotes = () => {
     });
   }
 
-  return anecdotes.toSorted((a, b) => b.votes - a.votes);
+  return [...anecdotes].toSorted((a, b) => b.votes - a.votes);
 };
 
 export const useAnecdoteActions = () => {
