@@ -75,6 +75,8 @@ describe("Anecdotes after initialization", () => {
     );
   });
   test("correct React component receives a properly filtered list of anecdotes", async () => {
+    act(() => useAnecdoteStore.setState({ anecdotes: mockAnecdotes }));
+
     render(<AnecdotesList />);
     expect(await screen.findAllByTestId("anecdotes-list-item")).toHaveLength(3);
 

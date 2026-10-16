@@ -61,15 +61,12 @@ export const useAnecdotes = () => {
   const anecdotes = useAnecdoteStore((state) => state.anecdotes);
   const filter = useAnecdoteStore((state) => state.filterText);
 
-  if (filter) {
-    return anecdotes.filter((anecdote) => {
-      const content = normalizeText(anecdote.content);
-      const filterValue = normalizeText(filter);
-      return content.includes(filterValue);
-    });
-  }
+  const filterValue = filter ? normalizeText(filter) : "";
+  const visibleAnecdotes = anecdotes.filter((anecdote) =>
+    normalizeText(anecdote.content).includes(filterValue)
+  );
 
-  return [...anecdotes].toSorted((a, b) => Number(b.votes) - Number(a.votes));
+  return visibleAnecdotes.toSorted((a, b) => Number(b.votes) - Number(a.votes));
 };
 
 export const useAnecdoteActions = () => {
