@@ -22,12 +22,13 @@ const AnecdotesList = () => {
     return (
         <div>
             {anecdotes.map((anecdote) => (
-                <div key={anecdote.id}>
+                <div data-testid="anecdotes-list-item" key={anecdote.id}>
                     <div>{anecdote.content}</div>
                     <div>
                         has {anecdote.votes}
                         <button
-                            onClick={() => handleVote(anecdote)}
+                            onClick={() =>
+                                handleVote(anecdote)}
                         >
                             vote
                         </button>
