@@ -7,6 +7,7 @@ export const useAnecdotes = () => {
   const result = useQuery({
     queryKey: ["anecdotes"],
     queryFn: getAnecdotes,
+    retry: 1,
   });
 
   const addAnecdoteMutation = useMutation({
