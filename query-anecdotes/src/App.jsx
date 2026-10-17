@@ -2,7 +2,7 @@ import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
 import AnecdoteList from "./components/AnecdoteList";
 import useAnecdotes from "./hooks/anecdotes";
-import { NotificationContextProvider } from "./context";
+import { NotificationContextProvider } from "./NotificationContext";
 
 const App = () => {
   const { isPending, isError } = useAnecdotes();

@@ -20,7 +20,8 @@ export const addAnecdote = async (content) => {
   };
   const response = await fetch(baseUrl, options);
   if (!response.ok) {
-    throw Error("Failed to add the anecdote.");
+    const message = await response.json();
+    throw Error(message.error);
   }
   return await response.json();
 };

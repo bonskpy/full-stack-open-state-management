@@ -1,8 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addAnecdote, getAnecdotes, updateAnecdote } from "../services";
+import useNotify from "./notification";
 
 const useAnecdotes = () => {
   const queryClient = useQueryClient();
+  const { setMessage } = useNotify();
 
   const result = useQuery({
     queryKey: ["anecdotes"],
@@ -18,6 +20,12 @@ const useAnecdotes = () => {
         ["anecdotes"],
         anecdotes.concat(newAnecdote),
       );
+      setMessage(`anecdote: '${newAnecdote.content}' created`);
+      setTimeout(() => setMessage(""), 5000);
+    },
+    onError: (error) => {
+      setMessage(`${error.message}`);
+      setTimeout(() => setMessage(""), 5000);
     },
   });
 

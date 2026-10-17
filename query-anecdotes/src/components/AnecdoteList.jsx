@@ -1,9 +1,9 @@
 import useAnecdotes from "../hooks/anecdotes";
-import useNotification from "../hooks/notification";
+import useNotify from "../hooks/notification";
 
 const AnecdoteList = () => {
     const { anecdotes, updateVotes } = useAnecdotes();
-    const { setMessage } = useNotification();
+    const { setMessage } = useNotify();
 
     const update = (anecdoteToUpdate) => {
         updateVotes(anecdoteToUpdate);
