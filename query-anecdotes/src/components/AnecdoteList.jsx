@@ -1,10 +1,9 @@
-import { useAnecdotes } from "../hooks";
-import NotificationContext from "../context";
-import { useContext } from "react";
+import useAnecdotes from "../hooks/anecdotes";
+import useNotification from "../hooks/notification";
 
 const AnecdoteList = () => {
     const { anecdotes, updateVotes } = useAnecdotes();
-    const { setMessage } = useContext(NotificationContext);
+    const { setMessage } = useNotification();
 
     const update = (anecdoteToUpdate) => {
         updateVotes(anecdoteToUpdate);

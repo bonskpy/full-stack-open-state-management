@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addAnecdote, getAnecdotes, updateAnecdote } from "./services";
 
-export const useAnecdotes = () => {
+const useAnecdotes = () => {
   const queryClient = useQueryClient();
 
   const result = useQuery({
@@ -41,3 +41,5 @@ export const useAnecdotes = () => {
       updateAnecdoteMutation.mutate({ ...anecdote, votes: anecdote.votes + 1 }),
   };
 };
+
+export default useAnecdotes;

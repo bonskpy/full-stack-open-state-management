@@ -1,7 +1,7 @@
 import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
 import AnecdoteList from "./components/AnecdoteList";
-import { useAnecdotes } from "./hooks";
+import useAnecdotes from "./hooks/anecdotes";
 import { NotificationContextProvider } from "./context";
 
 const App = () => {
