@@ -1,7 +1,16 @@
 import { useAnecdotes } from "../hooks";
+import NotificationContext from "../context";
+import { useContext } from "react";
 
 const AnecdoteList = () => {
     const { anecdotes, updateVotes } = useAnecdotes();
+    const { setMessage } = useContext(NotificationContext);
+
+    const update = (anecdoteToUpdate) => {
+        updateVotes(anecdoteToUpdate);
+        setMessage(`anecdote '${anecdoteToUpdate.content}' voted`);
+        setTimeout(() => setMessage(""), 5000);
+    };
 
     return (
         anecdotes.map((anecdote) => (
@@ -9,7 +18,7 @@ const AnecdoteList = () => {
                 <div>{anecdote.content}</div>
                 <div>
                     has {anecdote.votes}
-                    <button onClick={() => updateVotes(anecdote)}>vote</button>
+                    <button onClick={() => update(anecdote)}>vote</button>
                 </div>
             </div>
         ))
