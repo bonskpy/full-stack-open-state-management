@@ -1,9 +1,12 @@
 import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
 import { useAnecdotes } from "./hooks";
+// import { createContext } from "react";
 
 const App = () => {
-  const { anecdotes, isPending, isError, updateVotes } = useAnecdotes();
+  const { isPending, isError } = useAnecdotes();
+
+  // const NotificationContext = createContext("");
 
   if (isPending) {
     return <div>Fetching data...</div>;
@@ -16,19 +19,8 @@ const App = () => {
   return (
     <div>
       <h3>Anecdote app</h3>
-
       <Notification />
       <AnecdoteForm />
-
-      {anecdotes.map((anecdote) => (
-        <div key={anecdote.id}>
-          <div>{anecdote.content}</div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={() => updateVotes(anecdote)}>vote</button>
-          </div>
-        </div>
-      ))}
     </div>
   );
 };
